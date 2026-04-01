@@ -5,7 +5,7 @@ services:
     runtime: python
     plan: starter
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: python -m scalable_ai_api.main --component load_balancer --port $PORT
+    startCommand: uvicorn scalable_ai_api.load_balancer.render_app:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: LOAD_BALANCER_PORT
         value: $PORT
@@ -26,7 +26,7 @@ services:
     runtime: python
     plan: starter
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: python -m scalable_ai_api.ai_server.server_runner --server-id "Server A" --host 0.0.0.0 --port $PORT
+    startCommand: uvicorn scalable_ai_api.ai_server.render_app:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: SERVER_ID
         value: Server A
@@ -39,7 +39,7 @@ services:
     runtime: python
     plan: starter
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: python -m scalable_ai_api.ai_server.server_runner --server-id "Server B" --host 0.0.0.0 --port $PORT
+    startCommand: uvicorn scalable_ai_api.ai_server.render_app:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: SERVER_ID
         value: Server B

@@ -256,3 +256,7 @@ def create_load_balancer_app() -> FastAPI:
             )
     
     return app
+
+
+# Create the ASGI app instance for Render
+app = create_load_balancer_app()
