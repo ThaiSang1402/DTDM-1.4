@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  # Server A
+  server-a:
+    build:
+      context: .
+      dockerfile: Dockerfile.aiserver
+    environment:
+      - SERVER_ID=Server A
+      - LOG_LEVEL=INFO
+      - PYTHONPATH=/app
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - ai-network
+
+  # Server B
+  server-b:
+    build:
+      context: .
+      dockerfile: Dockerfile.aiserver
+    environment:
+      - SERVER_ID=Server B
+      - LOG_LEVEL=INFO
+      - PYTHONPATH=/app
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - ai-network
+
+  # Load Balancer
+  load-balancer:
+    build:
+      context: .
+      dockerfile: Dockerfile.loadbalancer
+    ports:
+      - "80:8000"
+    environment:
+      - SERVER_A_URL=http://server-a:8080
+      - SERVER_B_URL=http://server-b:8080
+      - HEALTH_CHECK_INTERVAL=30
+      - REQUEST_TIMEOUT=30
+      - LOG_LEVEL=INFO
+      - PYTHONPATH=/app
+    depends_on:
+      server-a:
+        condition: service_healthy
+      server-b:
+        condition: service_healthy
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - ai-network
+
+networks:
+  ai-network:
+    driver: overlay
+    attachable: true
