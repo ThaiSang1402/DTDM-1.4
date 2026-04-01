@@ -7,7 +7,7 @@ to ensure consistent behavior across the system.
 
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Optional
-from .models import (
+from scalable_ai_api.models import (
     ServerInstance, AIRequest, AIResponse, HealthStatus, 
     LoadBalancerMetrics, ScalingDecision, PerformanceReport
 )

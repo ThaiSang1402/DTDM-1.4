@@ -13,8 +13,8 @@ from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from .core import LoadBalancerCore
-from ..models import ServerInstance, AIRequest, ServerStatus
+from scalable_ai_api.load_balancer.core import LoadBalancerCore
+from scalable_ai_api.models import ServerInstance, AIRequest, ServerStatus
 
 
 # Global load balancer instance

@@ -17,8 +17,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import uvicorn
 
-from ..interfaces import AIServerInterface
-from ..models import AIRequest, AIResponse, ServerStatus
+from scalable_ai_api.interfaces import AIServerInterface
+from scalable_ai_api.models import AIRequest, AIResponse, ServerStatus
 
 
 class BaseAIServer(AIServerInterface):

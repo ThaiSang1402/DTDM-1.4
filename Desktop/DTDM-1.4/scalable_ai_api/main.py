@@ -12,8 +12,8 @@ import os
 import sys
 from typing import Optional
 
-from .ai_server.server_runner import run_server
-from .load_balancer.render_app import create_load_balancer_app
+from scalable_ai_api.ai_server.server_runner import run_server
+from scalable_ai_api.load_balancer.render_app import create_load_balancer_app
 
 
 def setup_logging(level: str = "INFO"):

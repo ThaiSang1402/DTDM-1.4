@@ -9,7 +9,7 @@ import logging
 import sys
 from typing import Optional
 
-from .base_server import BaseAIServer
+from scalable_ai_api.ai_server.base_server import BaseAIServer
 
 
 def setup_logging(level: str = "INFO"):

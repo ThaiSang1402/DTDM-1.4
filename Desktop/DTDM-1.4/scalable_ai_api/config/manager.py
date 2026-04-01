@@ -10,7 +10,7 @@ import json
 import yaml
 from typing import Dict, Any, Optional
 from pathlib import Path
-from ..models import SystemConfiguration, ScalingPolicy
+from scalable_ai_api.models import SystemConfiguration, ScalingPolicy
 
 
 class ConfigurationError(Exception):

@@ -1,5 +1,5 @@
 """Load Balancer module for Scalable AI API System."""
 
-from .core import LoadBalancerCore
+from scalable_ai_api.load_balancer.core import LoadBalancerCore
 
 __all__ = ["LoadBalancerCore"]

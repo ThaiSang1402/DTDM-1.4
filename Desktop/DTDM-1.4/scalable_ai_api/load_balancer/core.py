@@ -17,8 +17,8 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-from ..interfaces import LoadBalancerInterface
-from ..models import (
+from scalable_ai_api.interfaces import LoadBalancerInterface
+from scalable_ai_api.models import (
     ServerInstance, AIRequest, AIResponse, HealthStatus, 
     LoadBalancerMetrics, ServerStatus
 )
