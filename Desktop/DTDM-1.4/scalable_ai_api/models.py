@@ -63,6 +63,9 @@ class ServerInstance:
     @staticmethod
     def _is_valid_ip(ip: str) -> bool:
         """Validate IP address format."""
+        # Allow localhost
+        if ip.lower() == "localhost":
+            return True
         try:
             parts = ip.split('.')
             return len(parts) == 4 and all(0 <= int(part) <= 255 for part in parts)
